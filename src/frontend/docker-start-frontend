@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [[ "$#" -ne 1 ]]; then
+  echo "Usage: $0 <docker tag>"
+  exit 1
+fi
+
+frontend_port=${FRONTEND_PORT:-22111}
+backend_port=${BACKEND_PORT:-22112}
+
+echo "Running frontend on port: $frontend_port"
+echo "Running backend on port: $backend_port"
+
+api_url="http://backend:$backend_port"
+
+docker run \
+  --name frontend \
+  -p "$frontend_port:$frontend_port" \
+  -e API_URL="$api_url" \
+  --network appnet \
+  frontend:"$1"

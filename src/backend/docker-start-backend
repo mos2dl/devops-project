@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+if [[ "$#" -ne 1 ]]; then
+  echo "usage: $0 <docker tag>"
+  exit 1
+fi
+
+tag="$1"
+backend_port=${BACKEND_PORT:-22112}
+
+echo "Running backend on port $backend_port, and with tag $tag"
+
+docker run \
+  --name backend \
+  -p "$backend_port:$backend_port" \
+  --network appnet \
+  backend:"$tag"
