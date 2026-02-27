@@ -5,6 +5,8 @@ on:
 
 jobs:
   check_paths:
+    name: Check Paths
+
     runs-on: ubuntu-latest
 
     outputs:
